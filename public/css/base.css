@@ -1,0 +1,14 @@
+html {
+  font-family: sans-serif;
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+    min-height: 500px;
+    padding: 30px;
+}
+
+.reaction-timebox {
+  width: 300px;
+}

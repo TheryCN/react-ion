@@ -1,0 +1,34 @@
+{
+  "name": "react-ion",
+  "version": "0.0.0",
+  "private": true,
+  "license": "see LICENSE file",
+  "description": "React first app.",
+  "main": "server.js",
+  "dependencies": {
+    "body-parser": "^1.4.3",
+    "express": "^4.4.5",
+    "moment": "^2.13.0",
+    "moment-timezone": "^0.5.4"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/TheryCN"
+  },
+  "keywords": [
+    "react",
+    "tutorial",
+    "comment",
+    "example"
+  ],
+  "author": "theryy",
+  "homepage": "https://github.com/TheryCN",
+  "engines": {
+    "node": "0.12.x"
+  }
+}
