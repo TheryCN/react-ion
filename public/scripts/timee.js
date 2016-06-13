@@ -28,16 +28,13 @@ var TimeeBox = React.createClass({
   render: function() {
     return (
       <div className="timeeBox">
-        <h1>TimEe</h1>
+        <h1><span className="icon-clock" />TimEe</h1>
         <div className="row">
           <div className="col-md-2">
             <CurrentTimeBox time={this.state.time} />
           </div>
-          <div className="col-md-5">
-            <TimeBox url="/api/time" pollInterval={this.props.pollInterval} />
-          </div>
-          <div className="col-md-5">
-            <TimeZoneGrid url="/api/time/zone" pollInterval={this.props.pollInterval} />
+          <div className="col-md-10">
+            <DefinedTimeBox />
           </div>
         </div>
       </div>
@@ -49,30 +46,29 @@ var CurrentTimeBox = React.createClass({
   render: function() {
       var Panel = ReactBootstrap.Panel;
       return (
-        <div className="reaction-timebox">
-          <Panel header="Current Time">
-            <div>
-              Millis : {this.props.time.millis}
-            </div>
-            <div>
-              UTC : {this.props.time.utc}
-            </div>
-          </Panel>
-        </div>
+        <Panel header="Current Time">
+          <div>
+            Millis : {this.props.time.millis}
+          </div>
+          <div>
+            UTC : {this.props.time.utc}
+          </div>
+          <div>
+            Server ({this.props.time.tz}) : {this.props.time.local}
+          </div>
+        </Panel>
       );
     }
 });
 
-var TimeBox = React.createClass({
-  getTime: function(timeRequest) {
+var DefinedTimeBox = React.createClass({
+  getUtcTime: function() {
     $.ajax({
-      url: this.props.url,
+      url: "/api/utctime",
       dataType: 'json',
       cache: false,
-      type: 'POST',
-      data : timeRequest,
       success: function(data) {
-        this.setState({time: data});
+        this.updateTime(data);
       }.bind(this),
       error: function(xhr, status, err) {
         console.error(this.props.url, status, err.toString());
@@ -80,33 +76,13 @@ var TimeBox = React.createClass({
     });
   },
 
-  getInitialState: function() {
-    return {time: [], tz: 'Europe/Paris'};
-  },
-
-  componentDidMount: function() {
-    var self = this;
-    setInterval(function() {
-      var timeRequest = {tz : self.state.tz};
-      self.getTime(timeRequest);
-    }, this.props.pollInterval);
-  },
-
-  render: function() {
-      return (
-        <div>
-          {this.state.time} - {this.state.tz}
-        </div>
-      );
-    }
-});
-
-var TimeZoneGrid = React.createClass({
-  getTimeZoneList: function() {
+  getTimeZoneList: function(timeRequest) {
     $.ajax({
-      url: this.props.url,
+      url: "/api/time/zone",
       dataType: 'json',
       cache: false,
+      type: 'POST',
+      data: timeRequest,
       success: function(data) {
         this.setState({timeZoneList: data});
       }.bind(this),
@@ -117,13 +93,55 @@ var TimeZoneGrid = React.createClass({
   },
 
   getInitialState: function() {
-    return {timeZoneList: []};
+    return {time: [], timeZoneList: []};
   },
 
   componentDidMount: function() {
-    setInterval(this.getTimeZoneList, this.props.pollInterval);
+    this.getUtcTime();
   },
 
+  handleChangeTime: function(event) {
+    this.updateTime(event.target.value);
+  },
+
+  updateTime: function(time){
+    var timeJson = {time: time};
+    this.setState(timeJson);
+    this.getTimeZoneList(timeJson);
+  },
+
+  render: function() {
+      var Panel = ReactBootstrap.Panel;
+      return (
+        <Panel header="Defined Time">
+          <div className="row">
+            <div className="col-md-3">
+              <SettingsTimeBox time={this.state.time} handleChangeTime={this.handleChangeTime} />
+            </div>
+            <div className="col-md-9">
+              <TimeZoneGrid url="/api/time/zone" timeZoneList={this.state.timeZoneList} />
+            </div>
+          </div>
+        </Panel>
+      );
+    }
+});
+
+var SettingsTimeBox = React.createClass({
+  render: function() {
+      return (
+        <div>
+          <div>
+            <form>
+              UTC : <input value={this.props.time} onChange={this.props.handleChangeTime} />
+            </form>
+          </div>
+        </div>
+      );
+    }
+});
+
+var TimeZoneGrid = React.createClass({
   render: function() {
       var Table = ReactBootstrap.Table;
       return (
@@ -137,8 +155,8 @@ var TimeZoneGrid = React.createClass({
               </tr>
             </thead>
             <tbody>
-              {this.state.timeZoneList.map(function(result) {
-                 return <TimeZoneGridRow key={result.tz} data={result}/>;
+              {this.props.timeZoneList.map(function(result) {
+                 return <TimeZoneGridRow key={result.tz} data={result} />;
               })}
             </tbody>
           </Table>

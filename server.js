@@ -27,26 +27,30 @@ app.use(function(req, res, next) {
     next();
 });
 
+var format = 'YYYY-MM-DD HH:mm:ss'
+
 app.get('/api/now', function(req, res) {
     var now = moment();
-    var format = 'YYYY-MM-DD hh:mm:ss'
+    var local = momentTz();
     res.json({
         millis: now.format('x'),
-        utc: now.utc().format(format)
+        utc: now.utc().format(format),
+        tz : moment.tz.guess(),
+        local: local.format(format)
     });
 });
 
-app.post('/api/time', function(req, res) {
-    res.json(momentTz().tz(req.body.tz).format('YYYY-MM-DD hh:mm:ss'));
+app.get('/api/utctime', function(req, res) {
+    res.json(moment.utc().format(format));
 });
 
-app.get('/api/time/zone', function(req, res) {
+app.post('/api/time/zone', function(req, res) {
     var data = [];
-    var now = moment();
+    var now = moment(req.body.time, format);
     var tzList = ['Europe/Paris', 'Europe/London', 'Europe/Moscow', 'America/Los_Angeles', 'America/New_York', 'Pacific/Auckland', 'Asia/Tokyo'];
     tzList.forEach(function(timeZone) {
         var dateTz = now.tz(timeZone);
-        data.push({ date: dateTz.format('MM-DD hh:mm:ss'), tz: timeZone, offset: dateTz.utcOffset() / 60 });
+        data.push({ date: dateTz.format('MM-DD HH:mm:ss'), tz: timeZone, offset: dateTz.utcOffset() / 60 });
     });
     res.json(data);
 });
