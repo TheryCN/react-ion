@@ -16,12 +16,19 @@
     "react-bootstrap": "^0.29.4",
     "react-dom": "^15.1.0"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "browserify": "^13.0.1",
+    "gulp": "^3.9.1",
+    "gulp-util": "^3.0.7",
+    "vinyl-source-stream": "^1.1.0",
+    "watchify": "^3.7.0"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
-    "build": "browserify -t [ babelify --presets [ react ] --compact false --minified true ] public/scripts/index.js -o public/build/app.js",
-    "watch": "watchify -t [ babelify --presets [ react ] --compact false --minified true ] public/scripts/index.js -d -o public/build/app.js -v"
+    "build": "gulp build",
+    "browserify": "browserify -t [ babelify --presets [ react ] ] public/scripts/index.js -o public/build/app.js",
+    "watchify": "watchify -t [ babelify --presets [ react ] ] public/scripts/index.js -d -o public/build/app.js -v"
   },
   "repository": {
     "type": "git",
