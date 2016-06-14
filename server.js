@@ -46,7 +46,7 @@ app.get('/api/utctime', function(req, res) {
 
 app.post('/api/time/zone', function(req, res) {
     var data = [];
-    var now = moment(req.body.time, format);
+    var now = moment.utc(req.body.time, format);
     var tzList = ['Europe/Paris', 'Europe/London', 'Europe/Moscow', 'America/Los_Angeles', 'America/New_York', 'Pacific/Auckland', 'Australia/Sydney', 'Asia/Tokyo', 'Asia/Kolkata'];
     tzList.forEach(function(timeZone) {
         var dateTz = now.tz(timeZone);
