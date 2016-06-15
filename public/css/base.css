@@ -9,10 +9,14 @@ body {
     padding: 30px;
 }
 
+.logo {
+    height: 100px;
+}
+
 .clocky-canvas {
     background-color: #333;
 }
 
 .chrono-box {
-	cursor: pointer;
+    cursor: pointer;
 }
