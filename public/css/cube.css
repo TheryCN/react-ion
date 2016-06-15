@@ -20,39 +20,40 @@
     height: inherit;
     position: absolute;
     background: red;
-    opacity: 0.7;
     text-align: center;
     line-height: 50px;
     font-size: 30px;
 }
 
 .cube div.front {
-    background: yellow;
+    background: rgba(255, 255, 0, 0.7);
     transform: translate3d(0, 0, 25px);
 }
 
 .cube div.back {
-    background: orange;
+    background: rgba(255, 165, 0, 0.7);
     transform: rotateY(180deg) translate3d(0, 0, 25px);
 }
 
 .cube div.left {
-    background: green;
+    background: rgba(0, 255, 0, 0.7);
     transform: rotateY(-90deg) translate3d(0, 0, 25px);
 }
 
 .cube div.right {
-    background: magenta;
+    background: rgba(255, 0, 255, 0.7);
     transform: rotateY(90deg) translate3d(0, 0, 25px);
 }
 
 .cube div.top {
-    background: blue;
+    background: rgba(0, 0, 255, 0.7);
+    color: white;
     transform: rotateX(90deg) translate3d(0, 0, 25px);
 }
 
 .cube div.bottom {
-    background: red;
+    background: rgba(255, 0, 0, 0.7);
+    color: white;
     transform: rotateX(-90deg) translate3d(0, 0, 25px);
 }
 
