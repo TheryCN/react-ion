@@ -5,6 +5,7 @@ var ReactDOM = require('react-dom');
 var React = require('react');
 var ReactBootstrap = require('react-bootstrap');
 var ClockyBox = require('./clocky');
+var ChronoBox = require('./chrono');
 
 module.exports = React.createClass({
   getCurrentTime: function() {
@@ -37,6 +38,7 @@ module.exports = React.createClass({
           <div className="col-md-2">
             <CurrentTimeBox time={this.state.time} />
             <ClockyBox />
+            <ChronoBox />
           </div>
           <div className="col-md-10">
             <DefinedTimeBox />
