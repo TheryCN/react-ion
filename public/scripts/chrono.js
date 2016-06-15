@@ -23,6 +23,7 @@ module.exports = React.createClass({
 
   doubleClickHandler: function(event) {
     this.setState({ time: 0, active: false });
+    clearInterval(this.movement);
   },
 
   getInitialState: function() {

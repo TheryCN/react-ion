@@ -9,8 +9,12 @@ body {
     padding: 30px;
 }
 
+.header {
+    text-align: center;
+}
+
 .logo {
-    height: 100px;
+    height: 120px;
 }
 
 .clocky-canvas {
