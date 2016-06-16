@@ -7,6 +7,12 @@ var ReactBootstrap = require('react-bootstrap');
 var ClockyBox = require('./clocky');
 var ChronoBox = require('./chrono');
 
+/**
+ * TimeeBox class.
+ * @param  {string} url the WS url used to retrieve current time
+ * @param  {int} pollInterval the poll interval (using to refresh current time)
+ * @return {TimeeBox}
+ */
 module.exports = React.createClass({
   getCurrentTime: function() {
     $.ajax({
@@ -49,6 +55,11 @@ module.exports = React.createClass({
   }
 });
 
+/**
+ * CurrentTimeBox class.
+ * @param {millis,utc,tz,local} time the current time in different format
+ * @return {CurrentTimeBox}
+ */
 var CurrentTimeBox = React.createClass({
   render: function() {
     var Panel = ReactBootstrap.Panel;
@@ -68,6 +79,10 @@ var CurrentTimeBox = React.createClass({
   }
 });
 
+/**
+ * DefinedTimeBox class.
+ * @return {DefinedTimeBox}
+ */
 var DefinedTimeBox = React.createClass({
   getUtcTime: function() {
     $.ajax({
@@ -134,6 +149,12 @@ var DefinedTimeBox = React.createClass({
   }
 });
 
+/**
+ * SettingsTimeBox class.
+ * @param  {string} time the initialized time
+ * @param {event} handleChangeTime the event throwed on input change
+ * @return {SettingsTimeBox}
+ */
 var SettingsTimeBox = React.createClass({
   render: function() {
     return (
@@ -148,6 +169,11 @@ var SettingsTimeBox = React.createClass({
   }
 });
 
+/**
+ * TimeZoneGrid class.
+ * @param  {[date, tz, offset]} timeZoneList the date by timezone list 
+ * @return {TimeZoneGrid}
+ */
 var TimeZoneGrid = React.createClass({
   render: function() {
     var Table = ReactBootstrap.Table;
@@ -172,6 +198,11 @@ var TimeZoneGrid = React.createClass({
   }
 });
 
+/**
+ * TimeZoneGridRow class.
+ * @param  {date, tz, offset} data the date timezone data
+ * @return {TimeZoneGridRow}
+ */
 var TimeZoneGridRow = React.createClass({
   render: function() {
     return <tr><td>{this.props.data.date}</td><td>{this.props.data.tz}</td><td>{this.props.data.offset}</td></tr>;

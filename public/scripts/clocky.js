@@ -4,6 +4,10 @@
 var ReactDOM = require('react-dom');
 var React = require('react');
 
+/**
+ * ClockyBox class.
+ * @return {ClockyBox}
+ */
 module.exports = React.createClass({
 
   getRadius: function(canvas, context) {
@@ -18,6 +22,7 @@ module.exports = React.createClass({
     this.drawFace(context, radius);
     this.drawNumbers(context, radius);
 
+    // Retrieve current time (client side)
     var time = moment();
     var hour = time.hours();
     var minute = time.minutes();
