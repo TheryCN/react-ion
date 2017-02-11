@@ -60,7 +60,7 @@ var CubeBox = React.createClass({
     var localTime = stringTime[stringTime.length - parseInt(nextProps.role) - 1];
     localTime = parseInt((localTime) ? localTime : 0);
 
-    // The cube has only 6 faces, that's why we need  to update them to get 0-9 values
+    // The cube has only 6 faces, that's why we need to update them to get 0-9 values
     var front = 0;
     var position = POSITIONS[localTime % 4];
     switch (position) {
@@ -82,10 +82,10 @@ var CubeBox = React.createClass({
     }
 
     this.setState({
-      front: front,
-      bottom: front + 1,
-      back: front + 2,
-      top: front + 3,
+      front: front%10,
+      bottom: (front + 1)%10,
+      back: (front + 2)%10,
+      top: (front + 3)%10,
       position: position
     });
   },
