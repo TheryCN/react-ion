@@ -61,6 +61,12 @@ app.get('/api/timezones', function(req, res) {
   res.json(momentTz.tz.names());
 });
 
+app.get('/api/countries/geojson', function(req, res) {
+  fs.readFile('data/countries.geojson', 'utf8', function (err, data) {
+    res.json(JSON.parse(data));
+  });
+});
+
 app.listen(app.get('port'), function() {
   console.log('Server started: http://localhost:' + app.get('port') + '/');
 });

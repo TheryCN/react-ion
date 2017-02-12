@@ -4,6 +4,8 @@ var browserify = require('browserify'); // Providers "require" support, CommonJS
 var watchify = require('watchify'); // Watchify for source changes
 var source = require('vinyl-source-stream'); // Vinyl stream support
 var gutil = require('gulp-util');
+var minifyCSS = require('gulp-minify-css');
+var concat = require('gulp-concat');
 
 // Configuration for Gulp
 var config = {
@@ -44,4 +46,16 @@ gulp.task('build', function() {
   }
 
   return bundle();
+});
+
+gulp.task('css', function() {
+  return gulp.src('public/css/*.css')
+    .pipe(minifyCSS())
+    .pipe(concat('style.min.css'))
+    .pipe(gulp.dest(config.js.outputDir))
+});
+
+gulp.task('dependencies-css', function() {
+  return gulp.src('node_modules/openlayers/dist/ol.css')
+    .pipe(gulp.dest(config.js.outputDir))
 });

@@ -6,6 +6,7 @@ var React = require('react');
 var ReactBootstrap = require('react-bootstrap');
 var ClockyBox = require('./clocky');
 var ChronoBox = require('./chrono');
+var MapBox = require('./map');
 
 /**
  * TimeeBox class.
@@ -48,6 +49,12 @@ module.exports = React.createClass({
           </div>
           <div className="col-md-10">
             <DefinedTimeBox />
+          </div>
+        </div>
+
+        <div className="row">
+          <div className="col-md-12">
+            <MapBox />
           </div>
         </div>
       </div>
@@ -137,10 +144,12 @@ var DefinedTimeBox = React.createClass({
     return (
       <Panel header="Defined Time">
         <div className="row">
-          <div className="col-md-3">
+          <div className="col-md-12">
             <SettingsTimeBox time={this.state.time} handleChangeTime={this.handleChangeTime} />
           </div>
-          <div className="col-md-9">
+        </div>
+        <div className="row">
+          <div className="col-md-12">
             <TimeZoneGrid url="/api/time/zone" timeZoneList={this.state.timeZoneList} />
           </div>
         </div>
